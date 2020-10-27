@@ -8,6 +8,7 @@ use EasternEnterprise\CatalogPrice\Helper\Data;
 use EasternEnterprise\CatalogPrice\Model\Api\HttpRequest;
 use Magento\Backend\Block\Template\Context;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
+use Magento\Catalog\Model\ProductFactory;
 
 class UpdatePrice
 {
@@ -15,6 +16,11 @@ class UpdatePrice
 	 * @var CollectionFactory
 	 */
 	private $productCollectionFactory;
+	
+	/**
+	 * @var ProductFactory
+	 */
+	private $productFactory;
 	
 	/**
 	 * @var Data
@@ -29,12 +35,14 @@ class UpdatePrice
 	public function __construct(
 		Context $context,
 		CollectionFactory $productCollectionFactory,
-		Data $data,
+		ProductFactory $productFactory,
+		Data $helperData,
 		HttpRequest $request,
 		array $data = []
 	) {    
 		$this->productCollectionFactory = $productCollectionFactory;
-		$this->helper = $data;
+		$this->productFactory = $productFactory;
+		$this->helper = $helperData;
 		$this->request = $request;
 		
 		parent::__construct($context, $data);
@@ -48,7 +56,10 @@ class UpdatePrice
 			 * @Todo - If there are limited skus then run the loop else can create the batch for few skus together to process
 			*/
 			foreach ($collection as $product) {
-				$this->request->execute($product->getSku());
+				$price = $this->request->execute($product->getSku());
+				$productModel = $this->productFactory->create()->load($product->getId());
+				$productModel->setPrice($price);
+				$productModel->save();
 			}
 		}
 	}
