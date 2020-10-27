@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <easternenterprise_catalogprice>
+            <general>
+                <enabled>1</enabled>
+                <is_demo>1</is_demo>
+                <fetch_price>1</fetch_price>
+                <name>Service Points</name>
+                <title>SE DHL</title>
+                <max_limits>10</max_limits>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+            </general>
+        </easternenterprise_catalogprice>
+    </default>
+</config>

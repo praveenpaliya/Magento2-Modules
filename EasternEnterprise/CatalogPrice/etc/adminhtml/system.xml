@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="easternenterprise" translate="label" sortOrder="1">
+            <label>Eastern Enterprise</label>
+        </tab>
+		<section id="easternenterprise_catalogprice" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+			<class>separator-top</class>
+			<label>Catalog Pricing Setup</label>
+			<tab>easternenterprise</tab>
+			<resource>Magento_Backend::admin</resource>
+			<group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Catalog Pricing Setup Settings</label>
+				<field id="enabled" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="is_demo" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Return Demo Response</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+						<field id="enabled">1</field>
+					</depends>
+					<comment><![CDATA[Demo Response will return price 100 as fixed for every sku]]></comment>
+				</field>
+				<field id="fetch_price" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Fetch Product Price</label>
+					<source_model>EasternEnterprise\CatalogPrice\Model\Config\Source\FetchPrice</source_model>
+					<depends>
+						<field id="enabled">1</field>
+					</depends>
+				</field>
+				<field id="endpoint" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>API Endpoint</label>
+					<validate>required-entry</validate>
+					<depends>
+						<field id="enabled">1</field>
+					</depends>
+					<comment><![CDATA[e.g. https://api.example.com/]]></comment>
+				</field>
+				<field id="oauth_url" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Authentication Endpoint</label>
+					<comment><![CDATA[e.g. https://www.example.com/auth]]></comment>
+				</field>
+				<field id="oauth_username" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>OAuth Username</label>
+					<validate>required-entry</validate>
+				</field>
+				<field id="oauth_password" translate="label" type="password" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>OAuth Password</label>
+					<validate>required-entry</validate>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>
